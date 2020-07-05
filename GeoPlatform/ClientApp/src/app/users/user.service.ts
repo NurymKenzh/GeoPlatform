@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -49,6 +49,10 @@ export class UserService {
 
   authorizedUser() {
     return localStorage.getItem('token') != null;
+  }
+
+  getAuthorizedUserInfo() {
+    return this.httpClient.get(this.baseUrl + this.apiUrl + 'GetAuthorizedUserInfo');
   }
 
   comparePasswords(formBuilder: FormGroup) {

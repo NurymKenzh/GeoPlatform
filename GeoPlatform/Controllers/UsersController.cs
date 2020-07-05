@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using GeoPlatform.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -68,7 +69,7 @@ namespace GeoPlatform.Controllers
 
         [HttpPost]
         [Route("Login")]
-        //POST : api/Users/Login
+        // POST : api/Users/Login
         public async Task<IActionResult> Login(ApplicationUserLoginModel model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
@@ -91,6 +92,20 @@ namespace GeoPlatform.Controllers
             }
             else
                 return BadRequest(new { message = "Invalid login attempt." });
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("GetAuthorizedUserInfo")]
+        // GET : api/GetAuthorizedUserInfo
+        public async Task<Object> GetAuthorizedUserInfo()
+        {
+            string userId = User.Claims.First(c => c.Type == "Id").Value;
+            var user = await _userManager.FindByIdAsync(userId);
+            return new
+            {
+                user.Email
+            };
         }
     }
 }

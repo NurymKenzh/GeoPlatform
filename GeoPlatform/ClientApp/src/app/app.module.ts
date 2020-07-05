@@ -13,6 +13,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { UserService } from './users/user.service';
 import { RegisterComponent } from './users/register.component';
 import { LoginComponent } from './users/login.component';
+import { AuthorizeInterceptor } from './authorize/authorize.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,12 @@ import { LoginComponent } from './users/login.component';
     ]),
     ReactiveFormsModule
   ],
-  providers: [UserService],
+  providers: [UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizeInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

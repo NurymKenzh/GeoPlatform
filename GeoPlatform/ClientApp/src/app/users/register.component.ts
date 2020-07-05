@@ -6,17 +6,17 @@ import { UserService } from './user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(public service: UserService) { }
+  constructor(public userService: UserService) { }
 
   ngOnInit() {
-    this.service.formRegisterModel.reset();
+    this.userService.formRegisterModel.reset();
   }
 
   register() {
-    this.service.register().subscribe(
+    this.userService.register().subscribe(
       (res: any) => {
         if (res.succeeded) {
-          this.service.formRegisterModel.reset();
+          this.userService.formRegisterModel.reset();
           console.log('New user registered!');
         } else {
           res.errors.forEach(element => {

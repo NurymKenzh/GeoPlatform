@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using GeoPlatform.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GeoPlatform.Controllers
 {
@@ -34,6 +38,12 @@ namespace GeoPlatform.Controllers
             public string Password { get; set; }
         }
 
+        public class ApplicationUserLoginModel
+        {
+            public string Email { get; set; }
+            public string Password { get; set; }
+        }
+
         [HttpPost]
         [Route("Register")]
         // POST : api/Users/Register
@@ -54,6 +64,33 @@ namespace GeoPlatform.Controllers
             {
                 throw ex;
             }
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        //POST : api/Users/Login
+        public async Task<IActionResult> Login(ApplicationUserLoginModel model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            {
+                var securityTokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim("Id", user.Id.ToString()),
+                        new Claim("Email", user.Email)
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(1),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Startup.Configuration["JWTkey"].ToString())), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+                var securityToken = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
+                var token = jwtSecurityTokenHandler.WriteToken(securityToken);
+                return Ok(new { token });
+            }
+            else
+                return BadRequest(new { message = "Invalid login attempt." });
         }
     }
 }

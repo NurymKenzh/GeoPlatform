@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class UserService {
 
   constructor(private formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    @Inject('BASE_URL') baseUrl: string) {
+    @Inject('BASE_URL') baseUrl: string,
+    private router: Router) {
     this.baseUrl = baseUrl;
   }
 
@@ -34,6 +36,19 @@ export class UserService {
       Password: this.formRegisterModel.value.Passwords.Password
     };
     return this.httpClient.post(this.baseUrl + this.apiUrl + 'Register', body);
+  }
+
+  login(user) {
+    return this.httpClient.post(this.baseUrl + this.apiUrl + 'Login', user);
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/']);
+  }
+
+  authorizedUser() {
+    return localStorage.getItem('token') != null;
   }
 
   comparePasswords(formBuilder: FormGroup) {

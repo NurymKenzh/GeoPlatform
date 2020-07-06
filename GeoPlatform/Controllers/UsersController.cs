@@ -75,13 +75,20 @@ namespace GeoPlatform.Controllers
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
+                List<Claim> claims = new List<Claim>();
+                claims.Add(new Claim("Id", user.Id.ToString()));
+                claims.Add(new Claim("Email", user.Email));
+
+                var roles = await _userManager.GetRolesAsync(user);
+                IdentityOptions identityOptions = new IdentityOptions();
+                foreach(string role in roles)
+                {
+                    claims.Add(new Claim(identityOptions.ClaimsIdentity.RoleClaimType, role));
+                }
+
                 var securityTokenDescriptor = new SecurityTokenDescriptor
                 {
-                    Subject = new ClaimsIdentity(new Claim[]
-                    {
-                        new Claim("Id", user.Id.ToString()),
-                        new Claim("Email", user.Email)
-                    }),
+                    Subject = new ClaimsIdentity(claims.ToArray()),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Startup.Configuration["JWTkey"].ToString())), SecurityAlgorithms.HmacSha256Signature)
                 };
@@ -102,9 +109,11 @@ namespace GeoPlatform.Controllers
         {
             string userId = User.Claims.First(c => c.Type == "Id").Value;
             var user = await _userManager.FindByIdAsync(userId);
+            var roles = await _userManager.GetRolesAsync(user);
             return new
             {
-                user.Email
+                user.Email,
+                roles
             };
         }
     }

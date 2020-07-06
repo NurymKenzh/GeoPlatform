@@ -64,4 +64,24 @@ export class UserService {
         confirmPassword.setErrors(null);
     }
   }
+
+  allowedRole(allowedRoles): boolean {
+    let match = false;
+    const role = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1])).role;
+    console.log(JSON.parse(window.atob(localStorage.getItem('token').split('.')[1])));
+    if (typeof (role) == 'string') {
+      allowedRoles.forEach(element => {
+        if (role == element) {
+          match = true;
+          return false;
+        }
+      });
+    }
+    else if (Array.isArray(role)) {
+      if (allowedRoles.filter(element => role.includes(element)).length > 0) {
+        match = true;
+      }
+    }
+    return match;
+  }
 }

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace GeoPlatform.Controllers
@@ -20,11 +21,14 @@ namespace GeoPlatform.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
 
         public UsersController(
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
 
         public class ApplicationUserRegisterModel
@@ -45,9 +49,16 @@ namespace GeoPlatform.Controllers
             public string Password { get; set; }
         }
 
+        public class ApplicationUserViewModel
+        {
+            public string Id { get; set; }
+            public string Email { get; set; }
+            public string[] Roles { get; set; }
+        }
+
+        // POST: api/Users/Register
         [HttpPost]
         [Route("Register")]
-        // POST : api/Users/Register
         public async Task<Object> Register(ApplicationUserRegisterModel model)
         {
             var applicationUser = new ApplicationUser()
@@ -67,9 +78,9 @@ namespace GeoPlatform.Controllers
             }
         }
 
+        // POST: api/Users/Login
         [HttpPost]
         [Route("Login")]
-        // POST : api/Users/Login
         public async Task<IActionResult> Login(ApplicationUserLoginModel model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
@@ -101,10 +112,10 @@ namespace GeoPlatform.Controllers
                 return BadRequest(new { message = "Invalid login attempt." });
         }
 
+        // GET: api/Users/GetAuthorizedUserInfo
         [HttpGet]
         [Authorize]
         [Route("GetAuthorizedUserInfo")]
-        // GET : api/GetAuthorizedUserInfo
         public async Task<Object> GetAuthorizedUserInfo()
         {
             string userId = User.Claims.First(c => c.Type == "Id").Value;
@@ -115,6 +126,25 @@ namespace GeoPlatform.Controllers
                 user.Email,
                 roles
             };
+        }
+
+        // GET: api/Users
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult<IEnumerable<ApplicationUserViewModel>>> Users()
+        {
+            List<ApplicationUserViewModel> applicationUserViewModels = new List<ApplicationUserViewModel>();
+            List<ApplicationUser> applicationUsers = await _context.Users.ToListAsync();
+            foreach(ApplicationUser applicationUser in applicationUsers)
+            {
+                applicationUserViewModels.Add(new ApplicationUserViewModel()
+                {
+                    Id = applicationUser.Id,
+                    Email = applicationUser.Email,
+                    Roles = _userManager.GetRolesAsync(applicationUser).Result.ToArray()
+                });
+            }
+            return applicationUserViewModels;
         }
     }
 }

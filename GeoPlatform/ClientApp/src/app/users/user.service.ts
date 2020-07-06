@@ -47,6 +47,14 @@ export class UserService {
     this.router.navigate(['/']);
   }
 
+  public get(Id?) {
+    if (Id) {
+      return this.httpClient.get(this.baseUrl + this.apiUrl + '/' + Id);
+    } else {
+      return this.httpClient.get(this.baseUrl + this.apiUrl);
+    }
+  }
+
   authorizedUser() {
     return localStorage.getItem('token') != null;
   }
@@ -68,7 +76,6 @@ export class UserService {
   allowedRole(allowedRoles): boolean {
     let match = false;
     const role = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1])).role;
-    console.log(JSON.parse(window.atob(localStorage.getItem('token').split('.')[1])));
     if (typeof (role) == 'string') {
       allowedRoles.forEach(element => {
         if (role == element) {

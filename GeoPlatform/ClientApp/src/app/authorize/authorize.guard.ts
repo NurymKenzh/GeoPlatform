@@ -16,14 +16,14 @@ export class AuthorizeGuard implements CanActivate {
         if (this.userService.allowedRole(allowedRoles))
           return true;
         else {
-          this.router.navigate(['/user/login']);
+          this.router.navigate(['/users/login']);
           return false;
         }
       }
       return true;
     }
     else {
-      this.router.navigate(['/user/login']);
+      this.router.navigate(['/users/login']);
       return false;
     }
   }

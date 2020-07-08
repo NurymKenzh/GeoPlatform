@@ -1,7 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,14 @@ import { Router } from '@angular/router';
 export class UserService {
   baseUrl: string;
   apiUrl = 'api/Users/';
+  authorizedUser$: Subject<AuthorizedUser> = new Subject<AuthorizedUser>();
 
   constructor(private formBuilder: FormBuilder,
     private httpClient: HttpClient,
     @Inject('BASE_URL') baseUrl: string,
     private router: Router) {
     this.baseUrl = baseUrl;
+    
   }
 
   formRegisterModel = this.formBuilder.group(
@@ -39,10 +42,25 @@ export class UserService {
   }
 
   login(user) {
-    return this.httpClient.post(this.baseUrl + this.apiUrl + 'Login', user);
+    this.authorizedUser$.next(
+      {
+        Email: ""
+      }
+    );
+    this.httpClient.post(this.baseUrl + this.apiUrl + 'Login', user).subscribe(
+      (res: any) => {
+        this.authorizedUser$.next(
+          {
+            Email: JSON.parse(window.atob(res.token.split('.')[1])).Email
+          }
+        );
+        localStorage.setItem('token', res.token);
+        this.router.navigateByUrl('/');
+      });
   }
 
   logout() {
+    this.authorizedUser$.next(undefined);
     localStorage.removeItem('token');
     this.router.navigate(['/']);
   }
@@ -61,6 +79,15 @@ export class UserService {
 
   getAuthorizedUserInfo() {
     return this.httpClient.get(this.baseUrl + this.apiUrl + 'GetAuthorizedUserInfo');
+  }
+
+  getAuthorizedUserEmail() {
+    if (localStorage.getItem('token')) {
+      return JSON.parse(window.atob(localStorage.getItem('token').split('.')[1])).Email;
+    }
+    else {
+      return "";
+    }
   }
 
   comparePasswords(formBuilder: FormGroup) {
@@ -91,4 +118,8 @@ export class UserService {
     }
     return match;
   }
+}
+
+export interface AuthorizedUser {
+  Email: string;
 }

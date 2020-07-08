@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../users/user.service';
+import { UserService, AuthorizedUser } from '../users/user.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -8,20 +8,18 @@ import { UserService } from '../users/user.service';
 })
 export class NavMenuComponent implements OnInit {
   isExpanded = false;
-  authorizedUserInfo;
+  authorizedUser: AuthorizedUser;
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.authorizedUser$.subscribe((authorizedUser: AuthorizedUser) => {
+      this.authorizedUser = authorizedUser;
+    });
     if (localStorage.getItem('token')) {
-      this.userService.getAuthorizedUserInfo().subscribe(
-        res => {
-          this.authorizedUserInfo = res;
-        },
-        error => {
-          console.log(error);
-        },
-      );
+      this.authorizedUser = {
+        Email: this.userService.getAuthorizedUserEmail()
+      };
     }
   }
 

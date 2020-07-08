@@ -17,7 +17,6 @@ export class UserService {
     @Inject('BASE_URL') baseUrl: string,
     private router: Router) {
     this.baseUrl = baseUrl;
-    
   }
 
   formRegisterModel = this.formBuilder.group(

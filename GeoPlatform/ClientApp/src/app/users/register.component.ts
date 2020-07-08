@@ -15,11 +15,11 @@ export class RegisterComponent implements OnInit {
   register() {
     this.userService.register().subscribe(
       (res: any) => {
-        if (res.succeeded) {
+        if (res.Succeeded) {
           this.userService.formRegisterModel.reset();
-          console.log('New user registered!');
+          alert('New user registered!');
         } else {
-          res.errors.forEach(element => {
+          res.Errors.forEach(element => {
             console.log(element.description);
           });
         }

@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -31,6 +32,8 @@ import { RegisterComponent } from './users/register.component';
 import { LoginComponent } from './users/login.component';
 import { UsersIndexComponent } from './users/index.component';
 import { UsersListComponent } from './users/list.component';
+import { UserDetailsComponent } from './users/details.component';
+import { UserEditComponent } from './users/edit.component';
 
 import { AdministrationComponent } from './administration/administration.component';
 
@@ -45,6 +48,8 @@ import { AdministrationComponent } from './administration/administration.compone
     LoginComponent,
     UsersIndexComponent,
     UsersListComponent,
+    UserDetailsComponent,
+    UserEditComponent,
     AdministrationComponent
   ],
   imports: [
@@ -58,6 +63,8 @@ import { AdministrationComponent } from './administration/administration.compone
       { path: 'users/register', component: RegisterComponent },
       { path: 'users/login', component: LoginComponent },
       { path: 'users', component: UsersIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
+      { path: 'users/:id', component: UserDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
+      { path: 'users/edit/:id', component: UserEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'administration', component: AdministrationComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
     ]),
     ReactiveFormsModule,
@@ -71,7 +78,8 @@ import { AdministrationComponent } from './administration/administration.compone
     MatCardModule,
     MatButtonModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    MatCheckboxModule
   ],
   providers: [UserService,
     {

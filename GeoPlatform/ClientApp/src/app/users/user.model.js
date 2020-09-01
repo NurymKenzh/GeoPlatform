@@ -6,4 +6,10 @@ var User = /** @class */ (function () {
     return User;
 }());
 exports.User = User;
+var Role = /** @class */ (function () {
+    function Role() {
+    }
+    return Role;
+}());
+exports.Role = Role;
 //# sourceMappingURL=user.model.js.map

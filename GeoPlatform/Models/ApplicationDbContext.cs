@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GeoPlatform.Models;
 
 namespace GeoPlatform.Models
 {
@@ -13,5 +14,6 @@ namespace GeoPlatform.Models
             DbContextOptions options) : base(options)
         {
         }
+        public DbSet<GeoPlatform.Models.Country> Country { get; set; }
     }
 }

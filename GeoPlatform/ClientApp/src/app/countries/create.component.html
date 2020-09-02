@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-title>Create a new Country</mat-card-title>
+  <form [formGroup]="countryForm" autocomplete="off" novalidate (ngSubmit)="create(countryForm.value)">
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Country name" formControlName="Name" id="name">
+        <mat-hint>Not more then 60 characters long.</mat-hint>
+        <mat-error *ngIf="error('Name', 'required')">Name is required</mat-error>
+        <mat-error *ngIf="error('Name', 'maxlength')">You have more than 60 characters</mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input matInput type="text" placeholder="Country code" formControlName="Code" id="code">
+        <mat-hint>Not more then 2 characters long.</mat-hint>
+        <mat-error *ngIf="error('Code', 'required')">Code is required</mat-error>
+        <mat-error *ngIf="error('Code', 'maxlength')">You have more than 2 characters</mat-error>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" [disabled]="!countryForm.valid">Create</button>
+      <button type="button" mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

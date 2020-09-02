@@ -37,6 +37,13 @@ import { UserEditComponent } from './users/edit.component';
 
 import { AdministrationComponent } from './administration/administration.component';
 
+import { CountryService } from './countries/country.service';
+import { CountriesIndexComponent } from './countries/index.component';
+import { CountriesListComponent } from './countries/list.component';
+import { CountryCreateComponent } from './countries/create.component';
+import { CountryEditComponent } from './countries/edit.component';
+import { CountryDetailsComponent } from './countries/details.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +57,12 @@ import { AdministrationComponent } from './administration/administration.compone
     UsersListComponent,
     UserDetailsComponent,
     UserEditComponent,
-    AdministrationComponent
+    AdministrationComponent,
+    CountriesIndexComponent,
+    CountriesListComponent,
+    CountryCreateComponent,
+    CountryEditComponent,
+    CountryDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -66,6 +78,10 @@ import { AdministrationComponent } from './administration/administration.compone
       { path: 'users/:id', component: UserDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'users/edit/:id', component: UserEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'administration', component: AdministrationComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
+      { path: 'countries', component: CountriesIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
+      { path: 'countries/create', component: CountryCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
+      { path: 'countries/edit/:id', component: CountryEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
+      { path: 'countries/:id', component: CountryDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
     ]),
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -81,12 +97,15 @@ import { AdministrationComponent } from './administration/administration.compone
     MatListModule,
     MatCheckboxModule
   ],
-  providers: [UserService,
+  providers: [
+    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizeInterceptor,
       multi: true
-    }],
+    },
+    CountryService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

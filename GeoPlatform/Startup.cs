@@ -45,6 +45,9 @@ namespace GeoPlatform
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services
+                .AddTransient<Controllers.GeoServerController, Controllers.GeoServerController>();
+
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

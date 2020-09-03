@@ -44,6 +44,9 @@ import { CountryCreateComponent } from './countries/create.component';
 import { CountryEditComponent } from './countries/edit.component';
 import { CountryDetailsComponent } from './countries/details.component';
 
+import { LayerService } from './layers/layer.service';
+import { LayersIndexComponent } from './layers/index.component';
+import { LayersListComponent } from './layers/list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +65,9 @@ import { CountryDetailsComponent } from './countries/details.component';
     CountriesListComponent,
     CountryCreateComponent,
     CountryEditComponent,
-    CountryDetailsComponent
+    CountryDetailsComponent,
+    LayersIndexComponent,
+    LayersListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -82,6 +87,7 @@ import { CountryDetailsComponent } from './countries/details.component';
       { path: 'countries/create', component: CountryCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'countries/edit/:id', component: CountryEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'countries/:id', component: CountryDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
+      { path: 'layers', component: LayersIndexComponent },
     ]),
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -104,7 +110,8 @@ import { CountryDetailsComponent } from './countries/details.component';
       useClass: AuthorizeInterceptor,
       multi: true
     },
-    CountryService
+    CountryService,
+    LayerService
   ],
   bootstrap: [AppComponent]
 })

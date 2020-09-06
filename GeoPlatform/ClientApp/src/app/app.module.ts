@@ -47,6 +47,8 @@ import { CountryDetailsComponent } from './countries/details.component';
 import { LayerService } from './layers/layer.service';
 import { LayersIndexComponent } from './layers/index.component';
 import { LayersListComponent } from './layers/list.component';
+import { LayerCreateComponent } from './layers/create.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +69,8 @@ import { LayersListComponent } from './layers/list.component';
     CountryEditComponent,
     CountryDetailsComponent,
     LayersIndexComponent,
-    LayersListComponent
+    LayersListComponent,
+    LayerCreateComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -88,6 +91,7 @@ import { LayersListComponent } from './layers/list.component';
       { path: 'countries/edit/:id', component: CountryEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'countries/:id', component: CountryDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'layers', component: LayersIndexComponent },
+      { path: 'layers/create', component: LayerCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
     ]),
     ReactiveFormsModule,
     BrowserAnimationsModule,

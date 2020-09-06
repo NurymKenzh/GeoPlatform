@@ -13,7 +13,7 @@ import { Layer } from './layer.model';
 })
 
 export class LayersListComponent implements OnInit, AfterViewInit {
-  columns: string[] = ['Name', 'details-edit-delete'];
+  columns: string[] = ['Name', 'details-delete'];
   dataSource = new MatTableDataSource<Layer>();
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;

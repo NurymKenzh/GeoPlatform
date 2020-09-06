@@ -44,6 +44,7 @@
     <None Remove="ClientApp\src\app\countries\edit.component.ts" />
     <None Remove="ClientApp\src\app\countries\index.component.ts" />
     <None Remove="ClientApp\src\app\countries\list.component.ts" />
+    <None Remove="ClientApp\src\app\layers\create.component.ts" />
     <None Remove="ClientApp\src\app\layers\index.component.ts" />
     <None Remove="ClientApp\src\app\layers\layer.model.ts" />
     <None Remove="ClientApp\src\app\layers\layer.service.ts" />
@@ -69,6 +70,9 @@
     <TypeScriptCompile Include="ClientApp\src\app\countries\edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\countries\index.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\countries\list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\layers\create.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\layers\layer.service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

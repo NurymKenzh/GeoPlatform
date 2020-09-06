@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-card-title>Create a new Layer</mat-card-title>
+  <form autocomplete="off" novalidate (ngSubmit)="create()">
+    <mat-card-content>
+      <input type="file" (change)="filesChoose($event)" multiple>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary">Create</button>
+      <button type="button" mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using GeoPlatform.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -15,6 +17,7 @@ namespace GeoPlatform.Controllers
             user,
             password,
             URL,
+            DataDir,
             Workspace;
 
         public GeoServerController()
@@ -23,6 +26,7 @@ namespace GeoPlatform.Controllers
             user = Startup.Configuration["GeoServer:User"];
             password = Startup.Configuration["GeoServer:Password"];
             URL = Startup.Configuration["GeoServer:URL"];
+            DataDir = Startup.Configuration["GeoServer:DataDir"];
             Workspace = Startup.Configuration["GeoServer:Workspace"];
         }
 
@@ -43,6 +47,7 @@ namespace GeoPlatform.Controllers
                 throw new Exception(exception.ToString(), exception.InnerException);
             }
             string output = process.StandardOutput.ReadToEnd();
+            //string error = process.StandardError.ReadToEnd();
             process.WaitForExit();
             return output;
         }
@@ -88,9 +93,9 @@ namespace GeoPlatform.Controllers
             string output = CURL(arguments);
             dynamic json = JsonConvert.DeserializeObject(output);
             List<string> layers = new List<string>();
-            foreach(var layer in json.layers.layer)
+            foreach (var layer in json.layers.layer)
             {
-                if(layer.name.ToString().Split(':')[0] == Workspace)
+                if (layer.name.ToString().Split(':')[0] == Workspace)
                 {
                     layers.Add(layer.name.ToString().Split(':')[1]);
                 }
@@ -101,6 +106,83 @@ namespace GeoPlatform.Controllers
         public Layer[] GetWorkspaceLayers()
         {
             return GetWorkspaceLayerNames().Select(l => new Layer() { Name = l }).ToArray();
+        }
+
+        [RequestSizeLimit(100_000_000)]
+        [DisableRequestSizeLimit]
+        public Layer[] Publish(IFormFileCollection FormFiles)
+        {
+            foreach(var formFile in FormFiles)
+            {
+                var filePath = Path.Combine(DataDir, formFile.FileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    formFile.CopyTo(fileStream);
+                }
+            }
+            foreach (var formFile in FormFiles)
+            {
+                if (Path.GetExtension(formFile.FileName) == ".tif")
+                {
+                    PublishTif(formFile.FileName);
+                }
+                if (Path.GetExtension(formFile.FileName) == ".shp")
+                {
+                    PublishShp(formFile.FileName);
+                }
+                //RemoveNoLayerFile(formFile.FileName);
+            }
+
+            Layer[] layers = { new Layer() { Name = "TEST" } };
+
+            return layers;
+        }
+
+        private void PublishTif(string File)
+        {
+            string argumentsStore = $" -v -u" +
+                $" {user}:{password}" +
+                $" -POST" +
+                $" -H \"Content-type: text/xml\"" +
+                $" -d \"<coverageStore><name>{Path.GetFileNameWithoutExtension(File)}</name>" +
+                $"<workspace>{Workspace}</workspace>" +
+                $"<enabled>true</enabled>" +
+                $"<type>GeoTIFF</type>" +
+                $"<url>/data/{Workspace}/{File}</url></coverageStore>\"" +
+                $" {URL}rest/workspaces/{Workspace}/coveragestores?configure=all",
+            argumentsLayer = $" -v -u " +
+                $" {user}:{password}" +
+                $" -PUT" +
+                $" -H \"Content-type: text/xml\"" +
+                $" -d \"<coverage><name>{Path.GetFileNameWithoutExtension(File)}</name>" +
+                $"<title>{Path.GetFileNameWithoutExtension(File)}</title>" +
+                $"<defaultInterpolationMethod><name>nearest neighbor</name></defaultInterpolationMethod></coverage>\"" +
+                $" \"{URL}rest/workspaces/{Workspace}/coveragestores/{Path.GetFileNameWithoutExtension(File)}/coverages?recalculate=nativebbox\"";
+            CURL(argumentsStore);
+            CURL(argumentsLayer);
+        }
+
+        private void PublishShp(string File)
+        {
+            string argumentsStore = $" -v -u" +
+                $" {user}:{password}" +
+                $" -POST" +
+                $" -H \"Content-type: text/xml\"" +
+                $" -d \"<dataStore><name>{Path.GetFileNameWithoutExtension(File)}</name>" +
+                $"<workspace><name>{Workspace}</name></workspace>" +
+                $"<enabled>true</enabled>" +
+                $"<type>Shapefile</type>" +
+                $"<connectionParameters><entry key='url'>file:data/{Workspace}/{File}</entry></connectionParameters></dataStore>\"" +
+                $" \"{URL}rest/workspaces/{Workspace}/datastores\"",
+            argumentsLayer = $" -v -u " +
+                $" {user}:{password}" +
+                $" -POST" +
+                $" -H \"Content-type: text/xml\"" +
+                $" -d \"<featureType><name>{Path.GetFileNameWithoutExtension(File)}</name>" +
+                $"<title>{Path.GetFileNameWithoutExtension(File)}</title></featureType>\"" +
+                $" \"{URL}rest/workspaces/{Workspace}/datastores/{Path.GetFileNameWithoutExtension(File)}/featuretypes?recalculate=nativebbox\"";
+            CURL(argumentsStore);
+            CURL(argumentsLayer);
         }
     }
 }

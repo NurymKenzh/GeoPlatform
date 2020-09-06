@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using GeoPlatform.Models;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +25,14 @@ namespace GeoPlatform.Controllers
         public async Task<ActionResult<IEnumerable<Layer>>> GetLayer()
         {
             return _GeoServer.GetWorkspaceLayers();
+        }
+
+        [HttpPost]
+        [RequestSizeLimit(100_000_000)]
+        [DisableRequestSizeLimit]
+        public void PostLayer()
+        {
+            _GeoServer.Publish(HttpContext.Request.Form.Files);
         }
     }
 }

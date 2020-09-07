@@ -8,8 +8,8 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  baseUrl: string;
-  apiUrl = 'api/Users/';
+  private baseUrl: string;
+  private apiUrl = 'api/Users/';
   authorizedUser$: Subject<AuthorizedUser> = new Subject<AuthorizedUser>();
 
   constructor(private formBuilder: FormBuilder,

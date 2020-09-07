@@ -44,6 +44,7 @@
     <None Remove="ClientApp\src\app\countries\edit.component.ts" />
     <None Remove="ClientApp\src\app\countries\index.component.ts" />
     <None Remove="ClientApp\src\app\countries\list.component.ts" />
+    <None Remove="ClientApp\src\app\geoserver\geoserver.service.ts" />
     <None Remove="ClientApp\src\app\layers\create.component.ts" />
     <None Remove="ClientApp\src\app\layers\details.component.ts" />
     <None Remove="ClientApp\src\app\layers\index.component.ts" />
@@ -71,6 +72,9 @@
     <TypeScriptCompile Include="ClientApp\src\app\countries\edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\countries\index.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\countries\list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\geoserver\geoserver.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\layers\create.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

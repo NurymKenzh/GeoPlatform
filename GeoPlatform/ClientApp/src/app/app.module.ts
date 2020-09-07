@@ -50,6 +50,8 @@ import { LayersListComponent } from './layers/list.component';
 import { LayerCreateComponent } from './layers/create.component';
 import { LayerDetailsComponent } from './layers/details.component';
 
+import { GeoServerService } from './geoserver/geoserver.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -118,7 +120,8 @@ import { LayerDetailsComponent } from './layers/details.component';
       multi: true
     },
     CountryService,
-    LayerService
+    LayerService,
+    GeoServerService
   ],
   bootstrap: [AppComponent]
 })

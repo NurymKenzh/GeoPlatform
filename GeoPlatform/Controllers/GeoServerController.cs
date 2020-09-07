@@ -11,7 +11,9 @@ using Newtonsoft.Json;
 
 namespace GeoPlatform.Controllers
 {
-    public class GeoServerController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class GeoServerController : ControllerBase
     {
         private string curl,
             user,
@@ -28,6 +30,13 @@ namespace GeoPlatform.Controllers
             URL = Startup.Configuration["GeoServer:URL"];
             DataDir = Startup.Configuration["GeoServer:DataDir"];
             Workspace = Startup.Configuration["GeoServer:Workspace"];
+        }
+
+        // GET: api/GeoServer/GetURL
+        [HttpGet("GetURL")]
+        public async Task<ActionResult<string>> GetURL()
+        {
+            return Ok(URL);
         }
 
         private string CURL(string Arguments)

@@ -2,8 +2,8 @@ import { Inject } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
 export class CountryService {
-  baseUrl: string;
-  apiUrl = 'api/Countries/';
+  private baseUrl: string;
+  private apiUrl = 'api/Countries/';
 
   constructor(private http: HttpClient,
     @Inject('BASE_URL') baseUrl: string) {

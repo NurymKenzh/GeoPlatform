@@ -1,12 +1,15 @@
 import { Inject } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
+import { GeoServerService } from '../geoserver/geoserver.service';
+
 export class LayerService {
-  baseUrl: string;
-  apiUrl = 'api/Layers/';
+  private baseUrl: string;
+  private apiUrl = 'api/Layers/';
 
   constructor(private http: HttpClient,
-    @Inject('BASE_URL') baseUrl: string) {
+    @Inject('BASE_URL') baseUrl: string,
+    public GeoServerService: GeoServerService) {
     this.baseUrl = baseUrl;
   }
 

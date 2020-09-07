@@ -27,12 +27,20 @@ namespace GeoPlatform.Controllers
             return _GeoServer.GetWorkspaceLayers();
         }
 
+        // POST: api/Layers
         [HttpPost]
         [RequestSizeLimit(100_000_000)]
         [DisableRequestSizeLimit]
         public void PostLayer()
         {
             _GeoServer.Publish(HttpContext.Request.Form.Files);
+        }
+
+        // DELETE: api/Layers/5
+        [HttpDelete("{name}")]
+        public void DeleteCountry(string name)
+        {
+            _GeoServer.Unpublish(name);
         }
     }
 }

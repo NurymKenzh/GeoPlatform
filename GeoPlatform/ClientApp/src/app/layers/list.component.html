@@ -15,7 +15,7 @@
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let item">
         <a class="btn" [routerLink]="['/layers', item.Id]" matTooltip="Details"><i class="material-icons">info</i></a>
-        <a class="btn" matTooltip="Delete" (click)="delete(item.Id)"><i class="material-icons">delete</i></a>
+        <a class="btn" matTooltip="Delete" (click)="delete(item.Name)"><i class="material-icons">delete</i></a>
       </td>
     </ng-container>
   </tr>

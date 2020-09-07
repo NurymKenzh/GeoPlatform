@@ -47,42 +47,42 @@ namespace GeoPlatform.Controllers
                 throw new Exception(exception.ToString(), exception.InnerException);
             }
             string output = process.StandardOutput.ReadToEnd();
-            //string error = process.StandardError.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
             process.WaitForExit();
             return output;
         }
 
-        //public string[] GetWorkspaceDatastoreNames()
-        //{
-        //    string arguments = $" -u" +
-        //        $" {user}:{password}" +
-        //        $" -XGET" +
-        //        $" {URL}rest/workspaces/{Workspace}/datastores.json";
-        //    string output = CURL(arguments);
-        //    dynamic json = JsonConvert.DeserializeObject(output);
-        //    List<string> datastores = new List<string>();
-        //    foreach(var datastore in json.dataStores.dataStore)
-        //    {
-        //        datastores.Add(datastore.name.ToString());
-        //    }
-        //    return datastores.ToArray();
-        //}
+        private string[] GetWorkspaceDatastoreNames()
+        {
+            string arguments = $" -u" +
+                $" {user}:{password}" +
+                $" -XGET" +
+                $" {URL}rest/workspaces/{Workspace}/datastores.json";
+            string output = CURL(arguments);
+            dynamic json = JsonConvert.DeserializeObject(output);
+            List<string> datastores = new List<string>();
+            foreach (var datastore in json.dataStores.dataStore)
+            {
+                datastores.Add(datastore.name.ToString());
+            }
+            return datastores.ToArray();
+        }
 
-        //public string[] GetWorkspaceCoveragestoreNames()
-        //{
-        //    string arguments = $" -u" +
-        //        $" {user}:{password}" +
-        //        $" -XGET" +
-        //        $" {URL}rest/workspaces/{Workspace}/coveragestores.json";
-        //    string output = CURL(arguments);
-        //    dynamic json = JsonConvert.DeserializeObject(output);
-        //    List<string> coveragestores = new List<string>();
-        //    foreach(var datastore in json.dataStores.dataStore)
-        //    {
-        //        coveragestores.Add(datastore.name.ToString());
-        //    }
-        //    return coveragestores.ToArray();
-        //}
+        private string[] GetWorkspaceCoveragestoreNames()
+        {
+            string arguments = $" -u" +
+                $" {user}:{password}" +
+                $" -XGET" +
+                $" {URL}rest/workspaces/{Workspace}/coveragestores.json";
+            string output = CURL(arguments);
+            dynamic json = JsonConvert.DeserializeObject(output);
+            List<string> coveragestores = new List<string>();
+            foreach (var coveragestore in json.coverageStores.coverageStore)
+            {
+                coveragestores.Add(coveragestore.name.ToString());
+            }
+            return coveragestores.ToArray();
+        }
 
         private string[] GetWorkspaceLayerNames()
         {
@@ -183,6 +183,45 @@ namespace GeoPlatform.Controllers
                 $" \"{URL}rest/workspaces/{Workspace}/datastores/{Path.GetFileNameWithoutExtension(File)}/featuretypes?recalculate=nativebbox\"";
             CURL(argumentsStore);
             CURL(argumentsLayer);
+        }
+
+        public void Unpublish(string Layer)
+        {
+            if (GetWorkspaceCoveragestoreNames().Contains(Layer))
+            {
+                UnpublishTif(Layer);
+            }
+            else if(GetWorkspaceDatastoreNames().Contains(Layer))
+            {
+                UnpublishShp(Layer);
+            }
+            DeleteLayerFiles(Layer);
+        }
+
+        private void UnpublishTif(string Layer)
+        {
+            string argumentsCoveragestore = $" -v -u" +
+                $" {user}:{password}" +
+                $" -XDELETE" +
+                $" {URL}rest/workspaces/{Workspace}/coveragestores/{Layer}?recurse=true";
+            CURL(argumentsCoveragestore);
+        }
+
+        private void UnpublishShp(string Layer)
+        {
+            string argumentsDatastores = $" -v -u" +
+                $" {user}:{password}" +
+                $" -XDELETE" +
+                $" {URL}rest/workspaces/{Workspace}/datastores/{Layer}?recurse=true";
+            CURL(argumentsDatastores);
+        }
+
+        private void DeleteLayerFiles(string Layer)
+        {
+            foreach(string file in Directory.EnumerateFiles(DataDir, $"{Layer}.*"))
+            {
+                System.IO.File.Delete(file);
+            }
         }
     }
 }

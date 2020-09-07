@@ -18,10 +18,6 @@ export class LayerService {
     }
   }
 
-  delete(Name) {
-    return this.http.delete(this.baseUrl + this.apiUrl + Name);
-  }
-
   post(files: File[]) {
     const formData: FormData = new FormData();
     for (let i = 0; i < files.length; i++) {
@@ -29,5 +25,9 @@ export class LayerService {
     }
     return this.http
       .post(this.baseUrl + this.apiUrl, formData);
+  }
+
+  delete(Name) {
+    return this.http.delete(this.baseUrl + this.apiUrl + Name);
   }
 }

@@ -27,6 +27,18 @@ namespace GeoPlatform.Controllers
             return _GeoServer.GetWorkspaceLayers();
         }
 
+        // GET: api/Layers/layerName
+        [HttpGet("{name}")]
+        public async Task<ActionResult<Layer>> GetLayer(string Name)
+        {
+            var layer = new Layer()
+            {
+                Name = Name
+            };
+
+            return layer;
+        }
+
         // POST: api/Layers
         [HttpPost]
         [RequestSizeLimit(100_000_000)]

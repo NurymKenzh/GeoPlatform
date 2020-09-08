@@ -44,6 +44,7 @@ namespace GeoPlatform.Controllers
         // PUT: api/Countries/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCountry(int id, Country country)
         {
@@ -76,6 +77,7 @@ namespace GeoPlatform.Controllers
         // POST: api/Countries
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles = "Administrator, Moderator")]
         [HttpPost]
         public async Task<ActionResult<Country>> PostCountry(Country country)
         {
@@ -86,6 +88,7 @@ namespace GeoPlatform.Controllers
         }
 
         // DELETE: api/Countries/5
+        [Authorize(Roles = "Administrator, Moderator")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Country>> DeleteCountry(int id)
         {

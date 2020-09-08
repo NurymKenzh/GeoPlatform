@@ -90,8 +90,8 @@ export class LayerDetailsComponent implements OnInit {
         layer
       ],
       view: new View({
-        center: [7453088, 6202647],
-        zoom: 4
+        center: [0, 0],
+        zoom: 2
       })
     });
   }

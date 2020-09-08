@@ -7,6 +7,8 @@ import { MatSort } from '@angular/material/sort';
 import { LayerService } from './layer.service';
 import { Layer } from './layer.model';
 
+import { UserService } from '../users/user.service';
+
 @Component({
   selector: 'layers',
   templateUrl: 'list.component.html'
@@ -19,7 +21,8 @@ export class LayersListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private service: LayerService) {
+  constructor(private service: LayerService,
+    private userService: UserService) {
     this.dataSource.filterPredicate = (data: Layer, filter: string) => {
       return data.Name.toLowerCase().includes(filter);
     };

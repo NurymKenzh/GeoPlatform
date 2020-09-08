@@ -1,4 +1,4 @@
-<a class="btn" [routerLink]="['/layers/create']" matTooltip="Create"><i class="material-icons">add</i></a>
+<a *ngIf="userService.authorizedUser() && userService.allowedRole(['Administrator'])" class="btn" [routerLink]="['/layers/create']" matTooltip="Create"><i class="material-icons">add</i></a>
 
 <mat-form-field>
   <input matInput type="text" (keyup)="filter($event.target.value)" placeholder="Filter">
@@ -15,7 +15,7 @@
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let item">
         <a class="btn" [routerLink]="['/layers', item.Name]" matTooltip="Details"><i class="material-icons">info</i></a>
-        <a class="btn" matTooltip="Delete" (click)="delete(item.Name)"><i class="material-icons">delete</i></a>
+        <a *ngIf="userService.authorizedUser() && userService.allowedRole(['Administrator'])" class="btn" matTooltip="Delete" (click)="delete(item.Name)"><i class="material-icons">delete</i></a>
       </td>
     </ng-container>
   </tr>

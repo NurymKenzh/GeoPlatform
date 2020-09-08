@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using GeoPlatform.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +41,7 @@ namespace GeoPlatform.Controllers
         }
 
         // POST: api/Layers
+        [Authorize(Roles = "Administrator, Moderator")]
         [HttpPost]
         [RequestSizeLimit(100_000_000)]
         [DisableRequestSizeLimit]
@@ -49,6 +51,7 @@ namespace GeoPlatform.Controllers
         }
 
         // DELETE: api/Layers/5
+        [Authorize(Roles = "Administrator, Moderator")]
         [HttpDelete("{name}")]
         public void DeleteCountry(string name)
         {

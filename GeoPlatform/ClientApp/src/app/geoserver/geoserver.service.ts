@@ -10,7 +10,11 @@ export class GeoServerService {
     this.baseUrl = baseUrl;
   }
 
-  public getURLs() {
+  public getURL() {
     return this.http.get(this.baseUrl + this.apiUrl + 'GetURL', { responseType: 'text' as 'json' });
+  }
+
+  public getWorkspace() {
+    return this.http.get(this.baseUrl + this.apiUrl + 'GetWorkspace', { responseType: 'text' as 'json' });
   }
 }

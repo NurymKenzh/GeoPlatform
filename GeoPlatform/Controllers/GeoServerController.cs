@@ -39,6 +39,13 @@ namespace GeoPlatform.Controllers
             return Ok(URL);
         }
 
+        // GET: api/GeoServer/GetWorkspace
+        [HttpGet("GetWorkspace")]
+        public async Task<ActionResult<string>> GetWorkspace()
+        {
+            return Ok(Workspace);
+        }
+
         private string CURL(string Arguments)
         {
             Process process = new Process();

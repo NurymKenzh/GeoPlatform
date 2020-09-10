@@ -9,7 +9,8 @@ import TileWMS from 'ol/source/TileWMS';
 import XYZ from 'ol/source/XYZ';
 
 @Component({
-  templateUrl: 'index.component.html'
+  templateUrl: 'index.component.html',
+  styleUrls: ['index.component.css'],
 })
 
 export class IrrigationIndexComponent implements OnInit {

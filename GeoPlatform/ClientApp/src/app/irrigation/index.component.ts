@@ -16,7 +16,6 @@ export class IrrigationIndexComponent implements OnInit {
   map: Map;
   public geoServerUrl: string;
   public geoServerWorkspace: string;
-  menuItems = ['dashboard', 'sales', 'orders', 'customers', 'products'];
 
   constructor(private GeoServerService: GeoServerService) { }
 

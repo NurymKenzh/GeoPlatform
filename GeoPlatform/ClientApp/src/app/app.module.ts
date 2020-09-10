@@ -56,6 +56,8 @@ import { StyleService } from './styles/style.service';
 import { StylesIndexComponent } from './styles/index.component';
 import { StylesListComponent } from './styles/list.component';
 
+import { IrrigationIndexComponent } from './irrigation/index.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,7 +82,8 @@ import { StylesListComponent } from './styles/list.component';
     LayerCreateComponent,
     LayerDetailsComponent,
     StylesIndexComponent,
-    StylesListComponent
+    StylesListComponent,
+    IrrigationIndexComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -104,6 +107,7 @@ import { StylesListComponent } from './styles/list.component';
       { path: 'layers/create', component: LayerCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'layers/:name', component: LayerDetailsComponent },
       { path: 'styles', component: StylesIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
+      { path: 'irrigation', component: IrrigationIndexComponent },
     ]),
     ReactiveFormsModule,
     BrowserAnimationsModule,

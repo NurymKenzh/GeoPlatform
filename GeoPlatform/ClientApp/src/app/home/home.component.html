@@ -1,2 +1,3 @@
 <a class="btn" [routerLink]="['/layers']" matTooltip="Layers"><i class="material-icons">layers</i> Layers</a>
 <a *ngIf="userService.authorizedUser() && userService.allowedRole(['Administrator'])" class="btn" [routerLink]="['/styles']" matTooltip="Styles"><i class="material-icons">color_lens</i> Styles</a>
+<a class="btn" [routerLink]="['/irrigation']" matTooltip="Ирригация"><i class="material-icons">waves</i> Ирригация</a>

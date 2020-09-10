@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GeoPlatform.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GeoPlatform.Controllers
 {

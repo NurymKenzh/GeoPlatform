@@ -51,6 +51,10 @@
     <None Remove="ClientApp\src\app\layers\layer.model.ts" />
     <None Remove="ClientApp\src\app\layers\layer.service.ts" />
     <None Remove="ClientApp\src\app\layers\list.component.ts" />
+    <None Remove="ClientApp\src\app\styles\index.component.ts" />
+    <None Remove="ClientApp\src\app\styles\list.component.ts" />
+    <None Remove="ClientApp\src\app\styles\style.model.ts" />
+    <None Remove="ClientApp\src\app\styles\style.service.ts" />
     <None Remove="ClientApp\src\app\users\details.component.ts" />
     <None Remove="ClientApp\src\app\users\edit.component.ts" />
     <None Remove="ClientApp\src\app\users\index.component.ts" />
@@ -91,6 +95,18 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\layers\list.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\styles\index.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\styles\style.model.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\styles\style.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\styles\list.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\users\details.component.ts" />

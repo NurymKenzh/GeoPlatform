@@ -44,13 +44,17 @@ import { CountryCreateComponent } from './countries/create.component';
 import { CountryEditComponent } from './countries/edit.component';
 import { CountryDetailsComponent } from './countries/details.component';
 
+import { GeoServerService } from './geoserver/geoserver.service';
+
 import { LayerService } from './layers/layer.service';
 import { LayersIndexComponent } from './layers/index.component';
 import { LayersListComponent } from './layers/list.component';
 import { LayerCreateComponent } from './layers/create.component';
 import { LayerDetailsComponent } from './layers/details.component';
 
-import { GeoServerService } from './geoserver/geoserver.service';
+import { StyleService } from './styles/style.service';
+import { StylesIndexComponent } from './styles/index.component';
+import { StylesListComponent } from './styles/list.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +78,9 @@ import { GeoServerService } from './geoserver/geoserver.service';
     LayersIndexComponent,
     LayersListComponent,
     LayerCreateComponent,
-    LayerDetailsComponent
+    LayerDetailsComponent,
+    StylesIndexComponent,
+    StylesListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -97,6 +103,7 @@ import { GeoServerService } from './geoserver/geoserver.service';
       { path: 'layers', component: LayersIndexComponent },
       { path: 'layers/create', component: LayerCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'layers/:name', component: LayerDetailsComponent },
+      { path: 'styles', component: StylesIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
     ]),
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -120,8 +127,9 @@ import { GeoServerService } from './geoserver/geoserver.service';
       multi: true
     },
     CountryService,
+    GeoServerService,
     LayerService,
-    GeoServerService
+    StyleService
   ],
   bootstrap: [AppComponent]
 })

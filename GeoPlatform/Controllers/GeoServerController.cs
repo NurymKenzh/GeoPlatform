@@ -239,5 +239,26 @@ namespace GeoPlatform.Controllers
                 System.IO.File.Delete(file);
             }
         }
+
+        private string[] GetWorkspaceStyleNames()
+        {
+            string arguments = $" -u" +
+                $" {user}:{password}" +
+                $" -XGET" +
+                $" {URL}rest/workspaces/{Workspace}/styles.json";
+            string output = CURL(arguments);
+            dynamic json = JsonConvert.DeserializeObject(output);
+            List<string> styles = new List<string>();
+            foreach (var style in json.styles.style)
+            {
+                styles.Add(style.name.ToString());
+            }
+            return styles.ToArray();
+        }
+
+        public Style[] GetWorkspaceStyles()
+        {
+            return GetWorkspaceStyleNames().Select(l => new Style() { Name = l }).ToArray();
+        }
     }
 }

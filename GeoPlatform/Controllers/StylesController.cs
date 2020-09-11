@@ -27,5 +27,15 @@ namespace GeoPlatform.Controllers
         {
             return _GeoServer.GetWorkspaceStyles();
         }
+
+        // POST: api/Styles
+        [Authorize(Roles = "Administrator, Moderator")]
+        [HttpPost]
+        [RequestSizeLimit(100_000_000)]
+        [DisableRequestSizeLimit]
+        public void PostStyle()
+        {
+            _GeoServer.CreateStyle(HttpContext.Request.Form.Files);
+        }
     }
 }

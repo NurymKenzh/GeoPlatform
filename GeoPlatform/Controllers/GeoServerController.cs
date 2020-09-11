@@ -20,7 +20,8 @@ namespace GeoPlatform.Controllers
             password,
             URL,
             DataDir,
-            Workspace;
+            Workspace,
+            BuferDir;
 
         public GeoServerController()
         {
@@ -30,6 +31,7 @@ namespace GeoPlatform.Controllers
             URL = Startup.Configuration["GeoServer:URL"];
             DataDir = Startup.Configuration["GeoServer:DataDir"];
             Workspace = Startup.Configuration["GeoServer:Workspace"];
+            BuferDir = Startup.Configuration["BuferDir"];
         }
 
         // GET: api/GeoServer/GetURL
@@ -249,16 +251,65 @@ namespace GeoPlatform.Controllers
             string output = CURL(arguments);
             dynamic json = JsonConvert.DeserializeObject(output);
             List<string> styles = new List<string>();
-            foreach (var style in json.styles.style)
+            try
             {
-                styles.Add(style.name.ToString());
+                foreach (var style in json.styles.style)
+                {
+                    styles.Add(style.name.ToString());
+                }
             }
+            catch { }
             return styles.ToArray();
         }
 
         public Style[] GetWorkspaceStyles()
         {
             return GetWorkspaceStyleNames().Select(l => new Style() { Name = l }).ToArray();
+        }
+
+        private void CreateStyle(string File)
+        {
+            string argumentsStyle = $" -v -u" +
+                $" {user}:{password}" +
+                $" -XPOST" +
+                $" -H \"Content-type: text/xml\"" +
+                $" -d \"<style><name>{Path.GetFileNameWithoutExtension(File)}</name>" +
+                $"<filename>{Path.GetFileNameWithoutExtension(File)}.sld</filename></style>\"" +
+                $" {URL}rest/workspaces/{Workspace}/styles",
+            argumentsStyleFile = $" -v -u " +
+                $" {user}:{password}" +
+                $" -XPUT" +
+                $" -H \"Content-type: application/vnd.ogc.sld+xml\"" +
+                $" -d \"{File}.sld" +
+                $" \"{URL}rest/workspaces/{Workspace}/styles/{Path.GetFileNameWithoutExtension(File)}\"";
+            CURL(argumentsStyle);
+            CURL(argumentsStyleFile);
+        }
+
+        [RequestSizeLimit(100_000_000)]
+        [DisableRequestSizeLimit]
+        public Layer[] CreateStyle(IFormFileCollection FormFiles)
+        {
+            foreach (var formFile in FormFiles)
+            {
+                var filePath = Path.Combine(BuferDir, formFile.FileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    formFile.CopyTo(fileStream);
+                }
+            }
+            foreach (var formFile in FormFiles)
+            {
+                if (Path.GetExtension(formFile.FileName) == ".sld")
+                {
+                    CreateStyle(formFile.FileName);
+                }
+                //RemoveNoStyleFile(formFile.FileName);
+            }
+
+            Layer[] layers = { new Layer() { Name = "TEST" } };
+
+            return layers;
         }
     }
 }

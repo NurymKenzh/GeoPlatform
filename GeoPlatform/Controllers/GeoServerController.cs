@@ -304,7 +304,7 @@ namespace GeoPlatform.Controllers
                 {
                     CreateStyle(formFile.FileName);
                 }
-                //RemoveNoStyleFile(formFile.FileName);
+                System.IO.File.Delete(Path.Combine(BuferDir, formFile.FileName));
             }
 
             Layer[] layers = { new Layer() { Name = "TEST" } };

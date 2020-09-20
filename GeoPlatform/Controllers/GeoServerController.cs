@@ -128,7 +128,7 @@ namespace GeoPlatform.Controllers
 
         [RequestSizeLimit(100_000_000)]
         [DisableRequestSizeLimit]
-        public Layer[] Publish(IFormFileCollection FormFiles)
+        public Layer[] Publish(string DefaultStyle, IFormFileCollection FormFiles)
         {
             foreach(var formFile in FormFiles)
             {
@@ -142,11 +142,11 @@ namespace GeoPlatform.Controllers
             {
                 if (Path.GetExtension(formFile.FileName) == ".tif")
                 {
-                    PublishTif(formFile.FileName);
+                    PublishTif(formFile.FileName, DefaultStyle);
                 }
                 if (Path.GetExtension(formFile.FileName) == ".shp")
                 {
-                    PublishShp(formFile.FileName);
+                    PublishShp(formFile.FileName, DefaultStyle);
                 }
                 //RemoveNoLayerFile(formFile.FileName);
             }
@@ -156,7 +156,7 @@ namespace GeoPlatform.Controllers
             return layers;
         }
 
-        private void PublishTif(string File)
+        private void PublishTif(string File, string DefaultStyle)
         {
             string argumentsStore = $" -v -u" +
                 $" {user}:{password}" +
@@ -168,19 +168,26 @@ namespace GeoPlatform.Controllers
                 $"<type>GeoTIFF</type>" +
                 $"<url>/data/{Workspace}/{File}</url></coverageStore>\"" +
                 $" {URL}rest/workspaces/{Workspace}/coveragestores?configure=all",
-            argumentsLayer = $" -v -u " +
+            argumentsLayer = $" -v -u" +
                 $" {user}:{password}" +
                 $" -PUT" +
                 $" -H \"Content-type: text/xml\"" +
                 $" -d \"<coverage><name>{Path.GetFileNameWithoutExtension(File)}</name>" +
                 $"<title>{Path.GetFileNameWithoutExtension(File)}</title>" +
                 $"<defaultInterpolationMethod><name>nearest neighbor</name></defaultInterpolationMethod></coverage>\"" +
-                $" \"{URL}rest/workspaces/{Workspace}/coveragestores/{Path.GetFileNameWithoutExtension(File)}/coverages?recalculate=nativebbox\"";
+                $" \"{URL}rest/workspaces/{Workspace}/coveragestores/{Path.GetFileNameWithoutExtension(File)}/coverages?recalculate=nativebbox\"",
+            argumentsStyle = $" -v -u" +
+                $" {user}:{password}" +
+                $" -XPUT" +
+                $" -H \"Content-type: text/xml\"" +
+                $" -d \"<layer><defaultStyle><name>{Workspace}:{DefaultStyle}</name></defaultStyle></layer>\"" +
+                $" \"{URL}rest/workspaces/{Workspace}/layers/{Workspace}:{Path.GetFileNameWithoutExtension(File)}\"";
             CURL(argumentsStore);
             CURL(argumentsLayer);
+            CURL(argumentsStyle);
         }
 
-        private void PublishShp(string File)
+        private void PublishShp(string File, string DefaultStyle)
         {
             string argumentsStore = $" -v -u" +
                 $" {user}:{password}" +
@@ -192,15 +199,22 @@ namespace GeoPlatform.Controllers
                 $"<type>Shapefile</type>" +
                 $"<connectionParameters><entry key='url'>file:data/{Workspace}/{File}</entry></connectionParameters></dataStore>\"" +
                 $" \"{URL}rest/workspaces/{Workspace}/datastores\"",
-            argumentsLayer = $" -v -u " +
+            argumentsLayer = $" -v -u" +
                 $" {user}:{password}" +
                 $" -POST" +
                 $" -H \"Content-type: text/xml\"" +
                 $" -d \"<featureType><name>{Path.GetFileNameWithoutExtension(File)}</name>" +
                 $"<title>{Path.GetFileNameWithoutExtension(File)}</title></featureType>\"" +
-                $" \"{URL}rest/workspaces/{Workspace}/datastores/{Path.GetFileNameWithoutExtension(File)}/featuretypes?recalculate=nativebbox\"";
+                $" \"{URL}rest/workspaces/{Workspace}/datastores/{Path.GetFileNameWithoutExtension(File)}/featuretypes?recalculate=nativebbox\"",
+            argumentsStyle = $" -v -u" +
+                $" {user}:{password}" +
+                $" -XPUT" +
+                $" -H \"Content-type: text/xml\"" +
+                $" -d \"<layer><defaultStyle><name>{Workspace}:{DefaultStyle}</name></defaultStyle></layer>\"" +
+                $" \"{URL}rest/layers/{Workspace}:{Path.GetFileNameWithoutExtension(File)}\"";
             CURL(argumentsStore);
             CURL(argumentsLayer);
+            CURL(argumentsStyle);
         }
 
         public void Unpublish(string Layer)

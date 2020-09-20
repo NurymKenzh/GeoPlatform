@@ -29,12 +29,12 @@ namespace GeoPlatform
         public static IWebHost BuildWebHost(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
-                //.UseStartup<Startup>()
+                .UseStartup<Startup>()
                 .UseKestrel(options =>
                 {
                     options.Limits.MaxRequestBodySize = long.MaxValue;
                 })
-                //.UseIISIntegration()
+                .UseIISIntegration()
                 .Build();
         }
 

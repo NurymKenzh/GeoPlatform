@@ -18,8 +18,9 @@ export class LayerService {
     }
   }
 
-  post(files: File[]) {
+  post(defaultStyle, files: File[]) {
     const formData: FormData = new FormData();
+    formData.append('DefaultStyle', defaultStyle);
     for (let i = 0; i < files.length; i++) {
       formData.append('fileKey', files[i], files[i].name);
     }

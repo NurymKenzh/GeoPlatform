@@ -47,7 +47,8 @@ namespace GeoPlatform.Controllers
         [DisableRequestSizeLimit]
         public void PostLayer()
         {
-            _GeoServer.Publish(HttpContext.Request.Form.Files);
+            _GeoServer.Publish(HttpContext.Request.Form.FirstOrDefault(f => f.Key == "DefaultStyle").Value.ToString(),
+                HttpContext.Request.Form.Files);
         }
 
         // DELETE: api/Layers/LayerName

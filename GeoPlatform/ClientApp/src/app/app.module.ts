@@ -18,6 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import 'hammerjs';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSelectModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -132,7 +133,8 @@ import { IrrigationIndexComponent } from './irrigation/index.component';
     MatDividerModule,
     MatListModule,
     MatCheckboxModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSelectModule
   ],
   providers: [
     UserService,

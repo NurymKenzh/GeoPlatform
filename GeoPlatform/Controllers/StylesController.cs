@@ -28,6 +28,13 @@ namespace GeoPlatform.Controllers
             return _GeoServer.GetWorkspaceStyles();
         }
 
+        // GET: api/Styles/StyleName
+        [HttpGet("{name}")]
+        public async Task<ActionResult<Style>> GetCountry(string name)
+        {
+            return _GeoServer.GetStyle(name);
+        }
+
         // POST: api/Styles
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPost]
@@ -36,6 +43,24 @@ namespace GeoPlatform.Controllers
         public void PostStyle()
         {
             _GeoServer.CreateStyle(HttpContext.Request.Form.Files);
+        }
+
+        // PUT: api/Styles/StyleName
+        [Authorize(Roles = "Administrator, Moderator")]
+        [HttpPut("{name}")]
+        public async Task<IActionResult> PutStyle(string name)
+        {
+            _GeoServer.EditStyle(name, HttpContext.Request.Form.Files.FirstOrDefault());
+
+            return NoContent();
+        }
+
+        // DELETE: api/Styles/StyleName
+        [Authorize(Roles = "Administrator, Moderator")]
+        [HttpDelete("{name}")]
+        public void DeleteStyle(string name)
+        {
+            _GeoServer.DeleteStyle(name);
         }
     }
 }

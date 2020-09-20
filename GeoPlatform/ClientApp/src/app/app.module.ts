@@ -57,6 +57,7 @@ import { StyleService } from './styles/style.service';
 import { StylesIndexComponent } from './styles/index.component';
 import { StylesListComponent } from './styles/list.component';
 import { StyleCreateComponent } from './styles/create.component';
+import { StyleEditComponent } from './styles/edit.component';
 
 import { IrrigationIndexComponent } from './irrigation/index.component';
 
@@ -86,6 +87,7 @@ import { IrrigationIndexComponent } from './irrigation/index.component';
     StylesIndexComponent,
     StylesListComponent,
     StyleCreateComponent,
+    StyleEditComponent,
     IrrigationIndexComponent
   ],
   imports: [
@@ -111,6 +113,7 @@ import { IrrigationIndexComponent } from './irrigation/index.component';
       { path: 'layers/:name', component: LayerDetailsComponent },
       { path: 'styles', component: StylesIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'styles/create', component: StyleCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
+      { path: 'styles/edit/:name', component: StyleEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'irrigation', component: IrrigationIndexComponent },
     ]),
     ReactiveFormsModule,

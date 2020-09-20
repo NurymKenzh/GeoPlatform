@@ -28,7 +28,7 @@ namespace GeoPlatform.Controllers
             return _GeoServer.GetWorkspaceLayers();
         }
 
-        // GET: api/Layers/layerName
+        // GET: api/Layers/LayerName
         [HttpGet("{name}")]
         public async Task<ActionResult<Layer>> GetLayer(string Name)
         {
@@ -50,10 +50,10 @@ namespace GeoPlatform.Controllers
             _GeoServer.Publish(HttpContext.Request.Form.Files);
         }
 
-        // DELETE: api/Layers/5
+        // DELETE: api/Layers/LayerName
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpDelete("{name}")]
-        public void DeleteCountry(string name)
+        public void DeleteLayer(string name)
         {
             _GeoServer.Unpublish(name);
         }

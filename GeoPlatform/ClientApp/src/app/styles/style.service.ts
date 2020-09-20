@@ -23,8 +23,13 @@ export class StyleService {
     for (let i = 0; i < files.length; i++) {
       formData.append('fileKey', files[i], files[i].name);
     }
-    return this.http
-      .post(this.baseUrl + this.apiUrl, formData);
+    return this.http.post(this.baseUrl + this.apiUrl, formData);
+  }
+
+  put(style, file: File) {
+    const formData: FormData = new FormData();
+    formData.append('fileKey', file, file.name);
+    return this.http.put(this.baseUrl + this.apiUrl + style.Name, formData);
   }
 
   delete(Name) {

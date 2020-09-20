@@ -267,6 +267,11 @@ namespace GeoPlatform.Controllers
             return GetWorkspaceStyleNames().Select(l => new Style() { Name = l }).ToArray();
         }
 
+        public Style GetStyle(string Name)
+        {
+            return GetWorkspaceStyleNames().Select(l => new Style() { Name = l }).FirstOrDefault(s => s.Name == Name);
+        }
+
         private void CreateStyle(string File)
         {
             string argumentsStyle = $" -v -u" +
@@ -276,11 +281,11 @@ namespace GeoPlatform.Controllers
                 $" -d \"<style><name>{Path.GetFileNameWithoutExtension(File)}</name>" +
                 $"<filename>{Path.GetFileNameWithoutExtension(File)}.sld</filename></style>\"" +
                 $" {URL}rest/workspaces/{Workspace}/styles",
-            argumentsStyleFile = $" -v -u " +
+            argumentsStyleFile = $" -v -u" +
                 $" {user}:{password}" +
                 $" -XPUT" +
                 $" -H \"Content-type: application/vnd.ogc.sld+xml\"" +
-                $" -d \"{File}.sld" +
+                $" -d @\"{File}\"" +
                 $" \"{URL}rest/workspaces/{Workspace}/styles/{Path.GetFileNameWithoutExtension(File)}\"";
             CURL(argumentsStyle);
             CURL(argumentsStyleFile);
@@ -288,10 +293,14 @@ namespace GeoPlatform.Controllers
 
         [RequestSizeLimit(100_000_000)]
         [DisableRequestSizeLimit]
-        public Layer[] CreateStyle(IFormFileCollection FormFiles)
+        public void CreateStyle(IFormFileCollection FormFiles)
         {
             foreach (var formFile in FormFiles)
             {
+                if (!Directory.Exists(BuferDir))
+                {
+                    Directory.CreateDirectory(BuferDir);
+                }
                 var filePath = Path.Combine(BuferDir, formFile.FileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
@@ -302,14 +311,50 @@ namespace GeoPlatform.Controllers
             {
                 if (Path.GetExtension(formFile.FileName) == ".sld")
                 {
-                    CreateStyle(formFile.FileName);
+                    CreateStyle(Path.Combine(BuferDir, formFile.FileName));
                 }
                 System.IO.File.Delete(Path.Combine(BuferDir, formFile.FileName));
             }
+        }
 
-            Layer[] layers = { new Layer() { Name = "TEST" } };
+        public void DeleteStyle(string Name)
+        {
+            string argumentsStyle = $" -v -u" +
+                $" {user}:{password}" +
+                $" -XDELETE" +
+                $" {URL}rest/workspaces/{Workspace}/styles/{Name}";
+            CURL(argumentsStyle);
+        }
 
-            return layers;
+        private void EditStyle(string StyleName, string File)
+        {
+            string argumentsStyleFile = $" -v -u" +
+                $" {user}:{password}" +
+                $" -XPUT" +
+                $" -H \"Content-type: application/vnd.ogc.sld+xml\"" +
+                $" -d @\"{File}\"" +
+                $" \"{URL}rest/workspaces/{Workspace}/styles/{StyleName}\"";
+            CURL(argumentsStyleFile);
+        }
+
+        [RequestSizeLimit(100_000_000)]
+        [DisableRequestSizeLimit]
+        public void EditStyle(string StyleName, IFormFile FormFile)
+        {
+            if (!Directory.Exists(BuferDir))
+            {
+                Directory.CreateDirectory(BuferDir);
+            }
+            var filePath = Path.Combine(BuferDir, FormFile.FileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                FormFile.CopyTo(fileStream);
+            }
+            if (Path.GetExtension(FormFile.FileName) == ".sld")
+            {
+                EditStyle(StyleName, Path.Combine(BuferDir, FormFile.FileName));
+            }
+            System.IO.File.Delete(Path.Combine(BuferDir, FormFile.FileName));
         }
     }
 }

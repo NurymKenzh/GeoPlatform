@@ -15,7 +15,7 @@ import { UserService } from '../users/user.service';
 })
 
 export class StylesListComponent implements OnInit, AfterViewInit {
-  columns: string[] = ['Name', 'details-delete'];
+  columns: string[] = ['Name', 'details-edit-delete'];
   dataSource = new MatTableDataSource<Style>();
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;

@@ -28,6 +28,10 @@ export class LayerService {
       .post(this.baseUrl + this.apiUrl, formData);
   }
 
+  put(layer) {
+    return this.http.put(this.baseUrl + this.apiUrl + layer.Name, layer);
+  }
+
   delete(Name) {
     return this.http.delete(this.baseUrl + this.apiUrl + Name);
   }

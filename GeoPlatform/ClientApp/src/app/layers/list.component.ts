@@ -15,7 +15,7 @@ import { UserService } from '../users/user.service';
 })
 
 export class LayersListComponent implements OnInit, AfterViewInit {
-  columns: string[] = ['Name', 'details-delete'];
+  columns: string[] = ['Name', 'details-edit-delete'];
   dataSource = new MatTableDataSource<Layer>();
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;

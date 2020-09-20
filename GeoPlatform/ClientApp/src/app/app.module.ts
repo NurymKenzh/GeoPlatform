@@ -52,6 +52,7 @@ import { LayerService } from './layers/layer.service';
 import { LayersIndexComponent } from './layers/index.component';
 import { LayersListComponent } from './layers/list.component';
 import { LayerCreateComponent } from './layers/create.component';
+import { LayerEditComponent } from './layers/edit.component';
 import { LayerDetailsComponent } from './layers/details.component';
 
 import { StyleService } from './styles/style.service';
@@ -85,6 +86,7 @@ import { IrrigationIndexComponent } from './irrigation/index.component';
     LayersIndexComponent,
     LayersListComponent,
     LayerCreateComponent,
+    LayerEditComponent,
     LayerDetailsComponent,
     StylesIndexComponent,
     StylesListComponent,
@@ -113,6 +115,7 @@ import { IrrigationIndexComponent } from './irrigation/index.component';
       { path: 'countries/:id', component: CountryDetailsComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'layers', component: LayersIndexComponent },
       { path: 'layers/create', component: LayerCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
+      { path: 'layers/edit/:name', component: LayerEditComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'layers/:name', component: LayerDetailsComponent },
       { path: 'styles', component: StylesIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },
       { path: 'styles/create', component: StyleCreateComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },

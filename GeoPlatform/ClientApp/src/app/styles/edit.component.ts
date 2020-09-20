@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { StyleService } from './style.service';
 import { Style } from './style.model';
@@ -43,6 +43,7 @@ export class StyleEditComponent implements OnInit {
   }
 
   public save(styleFormValue) {
+    console.log(styleFormValue);
     const style: Style = {
       Name: styleFormValue.Name,
       Code: ''

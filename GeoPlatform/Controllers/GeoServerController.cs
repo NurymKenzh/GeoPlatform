@@ -217,6 +217,21 @@ namespace GeoPlatform.Controllers
             CURL(argumentsStyle);
         }
 
+        public Layer GetLayer(string Name)
+        {
+            Layer layer = new Layer()
+            {
+                Name = Name
+            };
+            string argumentsLayer = $" -v -u" +
+                $" {user}:{password}" +
+                $" -XGET" +
+                $" {URL}rest/layers/{Workspace}:{Name}";
+            dynamic json = JsonConvert.DeserializeObject(CURL(argumentsLayer));
+            layer.DefaultStyle = json.layer.defaultStyle.name;
+            return layer;
+        }
+
         public void Unpublish(string Layer)
         {
             if (GetWorkspaceCoveragestoreNames().Contains(Layer))
@@ -254,6 +269,17 @@ namespace GeoPlatform.Controllers
             {
                 System.IO.File.Delete(file);
             }
+        }
+
+        public void EditLayer(string Layer, string DefaultStyle)
+        {
+            string argumentsStyle = $" -v -u" +
+                $" {user}:{password}" +
+                $" -XPUT" +
+                $" -H \"Content-type: text/xml\"" +
+                $" -d \"<layer><defaultStyle><name>{Workspace}:{DefaultStyle}</name></defaultStyle></layer>\"" +
+                $" \"{URL}rest/layers/{Workspace}:{Layer}\"";
+            CURL(argumentsStyle);
         }
 
         private string[] GetWorkspaceStyleNames()

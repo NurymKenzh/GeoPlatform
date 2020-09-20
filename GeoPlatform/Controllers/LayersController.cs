@@ -30,14 +30,9 @@ namespace GeoPlatform.Controllers
 
         // GET: api/Layers/LayerName
         [HttpGet("{name}")]
-        public async Task<ActionResult<Layer>> GetLayer(string Name)
+        public async Task<ActionResult<Layer>> GetLayer(string name)
         {
-            var layer = new Layer()
-            {
-                Name = Name
-            };
-
-            return layer;
+            return _GeoServer.GetLayer(name);
         }
 
         // POST: api/Layers
@@ -49,6 +44,15 @@ namespace GeoPlatform.Controllers
         {
             _GeoServer.Publish(HttpContext.Request.Form.FirstOrDefault(f => f.Key == "DefaultStyle").Value.ToString(),
                 HttpContext.Request.Form.Files);
+        }
+
+        // PUT: api/Layers/LayerName
+        [Authorize(Roles = "Administrator, Moderator")]
+        [HttpPut("{name}")]
+        public async Task<IActionResult> PutLayer(string name, Layer layer)
+        {
+            _GeoServer.EditLayer(name, layer.DefaultStyle);
+            return NoContent();
         }
 
         // DELETE: api/Layers/LayerName

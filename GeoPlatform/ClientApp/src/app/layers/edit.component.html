@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-title>Edit Layer</mat-card-title>
+  <form [formGroup]="layerForm" autocomplete="off" novalidate (ngSubmit)="save(layerForm.value)">
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Layer name" formControlName="Name" id="name">
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-select name="DefaultStyle" formControlName="DefaultStyle">
+          <mat-option *ngFor="let style of styles" [value]="style.Name">
+            {{ style.Name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary">Save</button>
+      <button type="button" mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

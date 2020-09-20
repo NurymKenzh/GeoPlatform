@@ -48,6 +48,7 @@
     <None Remove="ClientApp\src\app\irrigation\index.component.ts" />
     <None Remove="ClientApp\src\app\layers\create.component.ts" />
     <None Remove="ClientApp\src\app\layers\details.component.ts" />
+    <None Remove="ClientApp\src\app\layers\edit.component.ts" />
     <None Remove="ClientApp\src\app\layers\index.component.ts" />
     <None Remove="ClientApp\src\app\layers\layer.model.ts" />
     <None Remove="ClientApp\src\app\layers\layer.service.ts" />
@@ -90,6 +91,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\layers\details.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\layers\edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\layers\layer.service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

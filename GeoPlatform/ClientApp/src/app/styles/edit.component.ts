@@ -45,6 +45,7 @@ export class StyleEditComponent implements OnInit {
   public save(styleFormValue) {
     const style: Style = {
       Name: styleFormValue.Name,
+      Code: ''
     }
     this.service.put(style, this.file)
       .subscribe(() => {

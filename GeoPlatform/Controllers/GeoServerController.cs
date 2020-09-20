@@ -269,7 +269,16 @@ namespace GeoPlatform.Controllers
 
         public Style GetStyle(string Name)
         {
-            return GetWorkspaceStyleNames().Select(l => new Style() { Name = l }).FirstOrDefault(s => s.Name == Name);
+            Style style = new Style()
+            {
+                Name = Name
+            };
+            string argumentsStyleCode = $" -v -u" +
+                $" {user}:{password}" +
+                $" -XGET" +
+                $" {URL}rest/workspaces/{Workspace}/styles/{Name}.sld";
+            style.Code = CURL(argumentsStyleCode);
+            return style;
         }
 
         private void CreateStyle(string File)

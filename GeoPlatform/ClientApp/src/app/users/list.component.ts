@@ -42,7 +42,7 @@ export class UsersListComponent implements OnInit, AfterViewInit {
   }
 
   delete(Id) {
-    if (confirm('Are you sure to delete this record ?')) {
+    if (confirm('Are you sure to delete this record?')) {
       this.userService.delete(Id)
         .subscribe(() => {
           this.get();

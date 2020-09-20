@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-title>Style details</mat-card-title>
+  <mat-card-content>
+    <dl>
+      <dt>Style name</dt>
+      <dd>{{style?.Name}}</dd>
+    </dl>
+    <dl>
+      <dt>Style code</dt>
+      <dd>
+        <textarea>{{style?.Code}}</textarea>
+      </dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions align="center">
+    <a class="btn" [routerLink]="['/styles']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+  </mat-card-actions>
+</mat-card>

@@ -30,7 +30,7 @@ namespace GeoPlatform.Controllers
 
         // GET: api/Styles/StyleName
         [HttpGet("{name}")]
-        public async Task<ActionResult<Style>> GetCountry(string name)
+        public async Task<ActionResult<Style>> GetStyle(string name)
         {
             return _GeoServer.GetStyle(name);
         }

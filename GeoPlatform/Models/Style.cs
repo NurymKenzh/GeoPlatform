@@ -8,5 +8,6 @@ namespace GeoPlatform.Models
     public class Style
     {
         public string Name { get; set; }
+        public string Code { get; set; }
     }
 }

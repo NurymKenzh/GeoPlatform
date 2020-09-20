@@ -43,7 +43,7 @@ export class CountriesListComponent implements OnInit, AfterViewInit {
   }
 
   delete(Id) {
-    if (confirm('Are you sure to delete this record ?')) {
+    if (confirm('Are you sure to delete this record?')) {
       this.service.delete(Id)
         .subscribe(() => {
           this.get();

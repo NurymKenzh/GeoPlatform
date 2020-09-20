@@ -45,7 +45,7 @@ export class LayersListComponent implements OnInit, AfterViewInit {
   }
 
   delete(Name) {
-    if (confirm('Are you sure to delete this record ?')) {
+    if (confirm('Are you sure to delete this record?')) {
       this.service.delete(Name)
         .subscribe(() => {
           this.get();

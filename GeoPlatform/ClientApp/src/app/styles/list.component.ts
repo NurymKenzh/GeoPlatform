@@ -22,7 +22,7 @@ export class StylesListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(private service: StyleService,
-    private userService: UserService) {
+    public userService: UserService) {
     this.dataSource.filterPredicate = (data: Style, filter: string) => {
       return data.Name.toLowerCase().includes(filter);
     };

@@ -47,6 +47,20 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "en": {
+              "aot": true,
+              "i18nFile": "src/locale/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en",
+              "i18nMissingTranslation": "error"
+            },
+            "pl": {
+              "aot": true,
+              "i18nFile": "src/locale/messages.pl.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "pl",
+              "i18nMissingTranslation": "error"
             }
           }
         },
@@ -58,6 +72,12 @@
           "configurations": {
             "production": {
               "browserTarget": "GeoPlatform:build:production"
+            },
+            "en": {
+              "browserTarget": "GeoPlatform:build:en"
+            },
+            "pl": {
+              "browserTarget": "GeoPlatform:build:pl"
             }
           }
         },

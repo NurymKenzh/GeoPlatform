@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
 import { UserService, AuthorizedUser } from '../users/user.service';
 
 @Component({
@@ -9,8 +9,14 @@ import { UserService, AuthorizedUser } from '../users/user.service';
 export class NavMenuComponent implements OnInit {
   isExpanded = false;
   authorizedUser: AuthorizedUser;
+  languages = [
+    { code: 'en', name: 'English' },
+    { code: 'pl', name: 'Polskie' }
+  ];
+  currentLanguage = this.languages.filter(l => { return l.code === this.locale })[0].name;
 
-  constructor(private userService: UserService) { }
+  constructor(public userService: UserService,
+    @Inject(LOCALE_ID) protected locale: string) { }
 
   ngOnInit() {
     this.userService.authorizedUser$.subscribe((authorizedUser: AuthorizedUser) => {

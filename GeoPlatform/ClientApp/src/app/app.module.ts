@@ -29,6 +29,8 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AuthorizeInterceptor } from './authorize/authorize.interceptor';
 import { AuthorizeGuard } from './authorize/authorize.guard';
 
+import { LocaleIndexComponent } from './locale/index.component';
+
 import { UserService } from './users/user.service';
 import { RegisterComponent } from './users/register.component';
 import { LoginComponent } from './users/login.component';
@@ -71,6 +73,7 @@ import { StyleDetailsComponent } from './styles/details.component';
     FetchDataComponent,
     RegisterComponent,
     LoginComponent,
+    LocaleIndexComponent,
     UsersIndexComponent,
     UsersListComponent,
     UserDetailsComponent,
@@ -100,6 +103,7 @@ import { StyleDetailsComponent } from './styles/details.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'locale', component: LocaleIndexComponent },
       { path: 'users/register', component: RegisterComponent },
       { path: 'users/login', component: LoginComponent },
       { path: 'users', component: UsersIndexComponent, canActivate: [AuthorizeGuard], data: { allowedRoles: ['Administrator'] } },

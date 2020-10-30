@@ -22,7 +22,7 @@ export class LayersListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(private service: LayerService,
-    private userService: UserService) {
+    public userService: UserService) {
     this.dataSource.filterPredicate = (data: Layer, filter: string) => {
       return data.Name.toLowerCase().includes(filter);
     };

@@ -20,6 +20,9 @@
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/locale']"><i class="material-icons">public</i> {{currentLanguage}}</a>
+          </li>
           <li *ngIf="userService.authorizedUser() && userService.allowedRole(['Administrator'])" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/administration']">Administration</a>
           </li>

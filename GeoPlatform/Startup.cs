@@ -124,6 +124,32 @@ namespace GeoPlatform
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
+            app.Map("/en", spa =>
+            {
+                spa.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "ClientApp";
+                    spa.Options.DefaultPage = $"/en/index.html";
+                    if (env.IsDevelopment())
+                    {
+                        spa.UseAngularCliServer(npmScript: "start:en");
+                    }
+                });
+            });
+
+            app.Map("/pl", spa =>
+            {
+                spa.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "ClientApp";
+                    spa.Options.DefaultPage = $"/pl/index.html";
+                    if (env.IsDevelopment())
+                    {
+                        spa.UseAngularCliServer(npmScript: "start:pl");
+                    }
+                });
+            });
+
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
@@ -133,7 +159,7 @@ namespace GeoPlatform
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseAngularCliServer(npmScript: "start:en");
                 }
             });
 

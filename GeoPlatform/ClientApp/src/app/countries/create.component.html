@@ -1,24 +1,31 @@
 <mat-card>
-  <mat-card-title>Create a new Country</mat-card-title>
+  <mat-card-title i18n="@@CreateNewCountry">Create a new Country</mat-card-title>
   <form [formGroup]="countryForm" autocomplete="off" novalidate (ngSubmit)="create(countryForm.value)">
     <mat-card-content>
       <mat-form-field>
-        <input matInput type="text" placeholder="Country name" formControlName="Name" id="name">
-        <mat-hint>Not more then 60 characters long.</mat-hint>
-        <mat-error *ngIf="error('Name', 'required')">Name is required</mat-error>
-        <mat-error *ngIf="error('Name', 'maxlength')">You have more than 60 characters</mat-error>
+        <input i18n-placeholder="@@CountryNameEnglish" matInput type="text" placeholder="Country name (English)" formControlName="NameEN" id="nameen">
+        <mat-hint i18n="@@NotMore60Characters">Not more than 60 characters long.</mat-hint>
+        <mat-error i18n="@@NameEnglishRequired" *ngIf="error('NameEN', 'required')">Name (English) is required</mat-error>
+        <mat-error i18n="@@More60Characters" *ngIf="error('NameEN', 'maxlength')">You have more than 60 characters</mat-error>
       </mat-form-field>
       <br />
       <mat-form-field>
-        <input matInput type="text" placeholder="Country code" formControlName="Code" id="code">
-        <mat-hint>Not more then 2 characters long.</mat-hint>
-        <mat-error *ngIf="error('Code', 'required')">Code is required</mat-error>
-        <mat-error *ngIf="error('Code', 'maxlength')">You have more than 2 characters</mat-error>
+        <input i18n-placeholder="@@CountryNamePolish" matInput type="text" placeholder="Country name (Polish)" formControlName="NamePL" id="namepl">
+        <mat-hint i18n="@@NotMore60Characters">Not more than 60 characters long.</mat-hint>
+        <mat-error i18n="@@NamePolishRequired" *ngIf="error('NamePL', 'required')">Name (Polish) is required</mat-error>
+        <mat-error i18n="@@More60Characters" *ngIf="error('NamePL', 'maxlength')">You have more than 60 characters</mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <input i18n-placeholder="@@CountryCode" matInput type="text" placeholder="Country code" formControlName="Code" id="code">
+        <mat-hint i18n="@@NotMore2Characters">Not more than 2 characters long.</mat-hint>
+        <mat-error i18n="@@CodeRequired" *ngIf="error('Code', 'required')">Code is required</mat-error>
+        <mat-error i18n="@@More2Characters" *ngIf="error('Code', 'maxlength')">You have more than 2 characters</mat-error>
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions align="center">
-      <button mat-raised-button color="primary" [disabled]="!countryForm.valid">Create</button>
-      <button type="button" mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+      <button i18n="@@Create" mat-raised-button color="primary" [disabled]="!countryForm.valid">Create</button>
+      <button i18n="@@Cancel" type="button" mat-raised-button color="warn" (click)="cancel()">Cancel</button>
     </mat-card-actions>
   </form>
 </mat-card>

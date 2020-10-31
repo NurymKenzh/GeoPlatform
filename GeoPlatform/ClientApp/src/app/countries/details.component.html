@@ -1,16 +1,16 @@
 <mat-card>
-  <mat-card-title>Country details</mat-card-title>
+  <mat-card-title i18n="@@CountryDetails">Country details</mat-card-title>
   <mat-card-content>
     <dl>
-      <dt>Country name</dt>
+      <dt i18n="@@CountryName">Country name</dt>
       <dd>{{country?.Name}}</dd>
     </dl>
     <dl>
-      <dt>Country code</dt>
+      <dt i18n="@@CountryCode">Country code</dt>
       <dd>{{country?.Code}}</dd>
     </dl>
   </mat-card-content>
   <mat-card-actions align="center">
-    <a class="btn" [routerLink]="['/countries']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
+    <a i18n-matTooltip="@@Back" class="btn" [routerLink]="['/countries']" matTooltip="Back"><i class="material-icons">arrow_back</i></a>
   </mat-card-actions>
 </mat-card>

@@ -16,7 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace GeoPlatform.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("{language}/api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {

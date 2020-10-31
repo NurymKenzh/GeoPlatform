@@ -7,12 +7,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GeoPlatform.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Globalization;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace GeoPlatform.Controllers
 {
-    [Route("api/[controller]")]
+    public class CustomController : Controller
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo(filterContext.RouteData.Values["language"].ToString());
+        }
+    }
+
+    [Route("{language}/api/[controller]")]
     [ApiController]
-    public class CountriesController : ControllerBase
+    public class CountriesController : CustomController
     {
         private readonly ApplicationDbContext _context;
 

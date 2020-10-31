@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GeoPlatform.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("{language}/api/[controller]")]
     [ApiController]
     public class StylesController : ControllerBase
     {

@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace GeoPlatform.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("{language}/api/[controller]")]
     [ApiController]
     public class GeoServerController : ControllerBase
     {

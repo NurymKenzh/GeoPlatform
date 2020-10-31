@@ -17,7 +17,8 @@ export class CountryCreateComponent implements OnInit {
 
   ngOnInit() {
     this.countryForm = new FormGroup({
-      Name: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      NameEN: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      NamePL: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       Code: new FormControl('', [Validators.required, Validators.maxLength(2)])
     });
   }
@@ -35,7 +36,9 @@ export class CountryCreateComponent implements OnInit {
     if (this.countryForm.valid) {
       const country: Country = {
         Id: 0,
-        Name: countryFormValue.Name,
+        NameEN: countryFormValue.NameEN,
+        NamePL: countryFormValue.NamePL,
+        Name: '',
         Code: countryFormValue.Code
       }
       this.service.post(country)

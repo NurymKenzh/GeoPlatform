@@ -4,10 +4,288 @@
     <body>
       <trans-unit id="Hello" datatype="html">
         <source>Hello</source>
-        <target>Witaj</target>
+        <target>Witam</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.html</context>
           <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Countries" datatype="html">
+        <source>
+          <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/>flag<x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Countries
+        </source>
+        <target>Państwa</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/administration/administration.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/administration/administration.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/index.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Create" datatype="html">
+        <source>Create</source>
+        <target>Stwórz</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/list.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Filter" datatype="html">
+        <source>Filter</source>
+        <target>Filtr</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/list.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Name" datatype="html">
+        <source>Name</source>
+        <target>Nazwa</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/list.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Code" datatype="html">
+        <source>Code</source>
+        <target>Kod</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/list.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Details" datatype="html">
+        <source>Details</source>
+        <target>Detale</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/list.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Edit" datatype="html">
+        <source>Edit</source>
+        <target>Edytować</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/list.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Delete" datatype="html">
+        <source>Delete</source>
+        <target>Usunąć</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/list.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CreateNewCountry" datatype="html">
+        <source>Create a new Country</source>
+        <target>Utwórz nowy kraj</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CountryNameEnglish" datatype="html">
+        <source>Country name (English)</source>
+        <target>Nazwa kraju (angielski)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NotMore60Characters" datatype="html">
+        <source>Not more than 60 characters long.</source>
+        <target>Nie więcej niż 60 znaków.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NameEnglishRequired" datatype="html">
+        <source>Name (English) is required</source>
+        <target>Imię i nazwisko (angielski) jest wymagane</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="More60Characters" datatype="html">
+        <source>You have more than 60 characters</source>
+        <target>Masz ponad 60 znaków</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CountryNamePolish" datatype="html">
+        <source>Country name (Polish)</source>
+        <target>Nazwa kraju (polski)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NamePolishRequired" datatype="html">
+        <source>Name (Polish) is required</source>
+        <target>Imię (polski) jest wymagane</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CountryCode" datatype="html">
+        <source>Country code</source>
+        <target>Kod pocztowy</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/details.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NotMore2Characters" datatype="html">
+        <source>Not more than 2 characters long.</source>
+        <target>Nie więcej niż 2 znaki.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CodeRequired" datatype="html">
+        <source>Code is required</source>
+        <target>Kod jest wymagany</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="More2Characters" datatype="html">
+        <source>You have more than 2 characters</source>
+        <target>Masz więcej niż 2 znaki</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Cancel" datatype="html">
+        <source>Cancel</source>
+        <target>Anulować</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/create.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="EditCountry" datatype="html">
+        <source>Edit Country</source>
+        <target>Edytuj kraj</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Save" datatype="html">
+        <source>Save</source>
+        <target>Zapisać</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/edit.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CountryDetails" datatype="html">
+        <source>Country details</source>
+        <target>Szczegóły kraju</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/details.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CountryName" datatype="html">
+        <source>Country name</source>
+        <target>Nazwa kraju</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/details.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Back" datatype="html">
+        <source>Back</source>
+        <target>Plecy</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/countries/details.component.html</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
     </body>

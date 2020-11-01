@@ -280,14 +280,6 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Back" datatype="html">
-        <source>Back</source>
-        <target>Plecy</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/countries/details.component.html</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -12,17 +12,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace GeoPlatform.Controllers
 {
-    public class CustomController : Controller
-    {
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo(filterContext.RouteData.Values["language"].ToString());
-        }
-    }
-
     [Route("{language}/api/[controller]")]
     [ApiController]
-    public class CountriesController : CustomController
+    public class CountriesController : OnActionExecutingController
     {
         private readonly ApplicationDbContext _context;
 

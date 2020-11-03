@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, LOCALE_ID, Inject } from '@angular/core';
+
+import { TranslateService } from '@ngx-translate/core';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,11 +21,15 @@ export class CountriesListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private service: CountryService) {
+  constructor(private service: CountryService,
+    private translate: TranslateService,
+    @Inject(LOCALE_ID) protected locale: string) {
     this.dataSource.filterPredicate = (data: Country, filter: string) => {
       return data.Name.toLowerCase().includes(filter)
         || data.Code.toLowerCase().includes(filter);
     };
+    translate.setDefaultLang(locale);
+    translate.use(locale);
   }
 
   ngOnInit() {
@@ -43,7 +49,7 @@ export class CountriesListComponent implements OnInit, AfterViewInit {
   }
 
   delete(Id) {
-    if (confirm('Are you sure to delete this record?')) {
+    if (confirm(this.translate.instant('AreYouSureDeleteThisRecord'))) {
       this.service.delete(Id)
         .subscribe(() => {
           this.get();

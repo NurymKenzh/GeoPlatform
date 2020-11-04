@@ -1,3 +1,6 @@
 {
-  "AreYouSureDeleteThisRecord": "Are you sure to delete this record?"
+  "AreYouSureDeleteThisRecord": "Are you sure to delete this record?",
+  "Paginator": {
+    "ItemsPerPage": "Items per page:"
+  }
 }

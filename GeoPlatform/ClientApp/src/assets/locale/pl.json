@@ -1,3 +1,6 @@
 {
-  "AreYouSureDeleteThisRecord": "Czy na pewno chcesz usunąć ten wpis?"
+  "AreYouSureDeleteThisRecord": "Czy na pewno chcesz usunąć ten wpis?",
+  "Paginator": {
+    "ItemsPerPage": "Przedmioty na stronę:"
+  }
 }

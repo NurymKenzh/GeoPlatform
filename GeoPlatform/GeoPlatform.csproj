@@ -53,6 +53,7 @@
     <None Remove="ClientApp\src\app\layers\layer.service.ts" />
     <None Remove="ClientApp\src\app\layers\list.component.ts" />
     <None Remove="ClientApp\src\app\locale\index.component.ts" />
+    <None Remove="ClientApp\src\app\paginator\paginator.component.ts" />
     <None Remove="ClientApp\src\app\styles\create.component.ts" />
     <None Remove="ClientApp\src\app\styles\details.component.ts" />
     <None Remove="ClientApp\src\app\styles\edit.component.ts" />
@@ -106,6 +107,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\locale\index.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\paginator\paginator.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\styles\create.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

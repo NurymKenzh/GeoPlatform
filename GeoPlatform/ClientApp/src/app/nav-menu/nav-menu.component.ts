@@ -13,10 +13,14 @@ export class NavMenuComponent implements OnInit {
     { code: 'en', name: 'English' },
     { code: 'pl', name: 'Polskie' }
   ];
-  currentLanguage = this.languages.filter(l => { return l.code === this.locale })[0].name;
+  currentLanguage: string;
 
   constructor(public userService: UserService,
-    @Inject(LOCALE_ID) protected locale: string) { }
+    @Inject(LOCALE_ID) protected locale: string) {
+    this.currentLanguage = (this.languages.filter(l => { return l.code === this.locale }).length > 0)
+      ? (this.languages.filter(l => { return l.code === this.locale })[0].name)
+      : (this.languages[0].name);
+  }
 
   ngOnInit() {
     this.userService.authorizedUser$.subscribe((authorizedUser: AuthorizedUser) => {
